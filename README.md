@@ -3,11 +3,11 @@ CS4450 Interpreter Project 2020
 
 Group Name: THE INTERPRETERS
 
-Members:
-Bryan Prichard (The All C-ing Eye),  
-Christian Caldwell (The REACTor),  
-Micah Tamerius (Python, Pythoff),  
-Ben Frailey (R ya ready, kids?),
-Joshua Hickman 
+Members: 
+Bryan Prichard (The All C-ing Eye),   
+Christian Caldwell (The REACTor),   
+Micah Tamerius (Python, Pythoff),   
+Ben Frailey (R ya ready, kids?), 
+Joshua Hickman  
 
-Language Selection: Python
+Language Selection: C
