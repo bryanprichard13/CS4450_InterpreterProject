@@ -16,12 +16,12 @@ float [0-9]*\.[0-9]+
 
 "#"[^\r\n]* { continue;         }
 [ \t]       ; 
-"+"         { return TOKEN_ADD; }
-"-"         { return TOKEN_MINUS; }
-"*"         { return TOKEN_MULTIPLY; }
-"/"         { return TOKEN_DIVIDE; }
-"%"         { return TOKEN_MOD; }
-"^"         { return TOKEN_EXPO]; }
+"+"         { return yytext[0]; }
+"-"         { return yytext[0]; }
+"*"         { return yytext[0]; }
+"/"         { return yytext[0]; }
+"%"         { return yytext[0]; }
+"^"         { return yytext[0]; }
 "("         { return yytext[0]; }
 ")"         { return yytext[0]; }
 "="         { return yytext[0]; }
@@ -45,6 +45,7 @@ float [0-9]*\.[0-9]+
 "else"      { return ELSE;      }
 "def"       { return DEF;       }
 "while"     { return WHILE;     }
+"for"       { return FOR;       }
 "print"     { return PRINT;     }
 "end"       { return END;       }
 "return"    { return RETURN;    }

@@ -11,9 +11,10 @@ extern int yyparse();
 %}
 
 %union {
-     int       int_value;     "int"
-     float     float_value;   "float"
-     char*     string         "string"
+     int            int_value;     "int"
+     float          float_value;   "float"
+     char*          string         "string"
+     Arithmetic*    expression   "expression"    
 }
 
 %token <int_value>       TOKEN_INT
@@ -31,7 +32,14 @@ extern int yyparse();
 %left TOKEN_ADD TOKEN_MINUS
 %left TOKEN_MULTIPLY TOKEN_DIVIDE TOKEN_MOD TOKEN_EXPO
 
+%type <expression> exp
+
 %%
+
+exp       : TOKEN_INT
+          | TOKEN_FLOAT
+          | TOKEN_STRING
+          | exp TOKEN_ADD exp {}
 
 TODO: Add expressions
 
