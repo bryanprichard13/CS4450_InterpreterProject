@@ -2,7 +2,7 @@ PROGRAM = python_interpreter
 
 all: python_interpreter
 
-parse.tab.h parse.tab.h: parse.y
+parse.tab.c parse.tab.h: parse.y
 	bison -t -v -d parse.y
 
 lex.yy.c: parse.tab.h lex.l 

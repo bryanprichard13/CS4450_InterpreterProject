@@ -15,19 +15,19 @@ extern int yyparse();
      float     float_value;
 }
 
-%token <int_value> TOKEN-INT
-%token <float_value> TOKEN-float
-%token TOKEN-ADD         "+"
-%token TOKEN-MINUS       "-"
-%token TOKEN-MULTIPLY    "*"
-%token TOKEN-DIVIDE      "/"
-%token TOKEN-MOD         "%"
-%token TOKEN-EXPO        "^"
-%token TOKEN-LEFT
-%token TOKEN-RIGHT
+%token <int_value> TOKEN_INT
+%token <float_value> TOKEN_float
+%token TOKEN_ADD         "+"
+%token TOKEN_MINUS       "-"
+%token TOKEN_MULTIPLY    "*"
+%token TOKEN_DIVIDE      "/"
+%token TOKEN_MOD         "%"
+%token TOKEN_EXPO        "^"
+%token TOKEN_LEFT
+%token TOKEN_RIGHT
 
-%left TOKEN-ADD TOKEN-MINUS
-%left TOKEN-MULTIPLY TOKEN-DIVIDE TOKEN-MOD TOKEN-EXPO
+%left TOKEN_ADD TOKEN_MINUS
+%left TOKEN_MULTIPLY TOKEN_DIVIDE TOKEN_MOD TOKEN_EXPO
 %
 
 %%
