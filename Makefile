@@ -1,3 +1,7 @@
+CXX = clang++
+LEX = flex
+YACC = bison -d
+YACCFLAGS = -x c++
 PROGRAM = python_interpreter
 
 all: python_interpreter
