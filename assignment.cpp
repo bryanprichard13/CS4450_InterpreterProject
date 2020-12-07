@@ -3,8 +3,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
-#include "exception.h"
-#include "number.h"
+//#include "exception.h"
+#include "assignment.h"
 
 using std::ostream;
 using std::fixed;
@@ -15,7 +15,7 @@ ostream& operator<<(ostream& out, const Number& num) {
    } else if (num.type == FLOAT) {
       return out << fixed << num.value.f;
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
 
@@ -29,7 +29,7 @@ bool operator==(const Number& lhs, const Number& rhs) {
    } else if (lhs.type == FLOAT && rhs.type == INT) {
       return lhs.value.f == rhs.value.i;
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
 
@@ -47,7 +47,7 @@ bool operator<(const Number& lhs, const Number& rhs) {
    } else if (lhs.type == FLOAT && rhs.type == INT) {
       return lhs.value.f < rhs.value.i;
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
 
@@ -61,7 +61,7 @@ bool operator>(const Number& lhs, const Number& rhs) {
    } else if (lhs.type == FLOAT && rhs.type == INT) {
       return lhs.value.f > rhs.value.i;
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
 
@@ -119,7 +119,7 @@ Number Number::operator+(const Number& rhs) const {
    } else if (type == FLOAT && rhs.type == INT) {
       return Number(value.f + rhs.value.i);
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
 
@@ -133,7 +133,7 @@ Number Number::operator-(const Number& rhs) const {
    } else if (type == FLOAT && rhs.type == INT) {
       return Number(value.f - rhs.value.i);
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
 
@@ -147,14 +147,14 @@ Number Number::operator*(const Number& rhs) const {
    } else if (type == FLOAT && rhs.type == INT) {
       return Number(value.f * rhs.value.i);
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
 
 Number Number::operator/(const Number& rhs) const {
    if (type == INT && rhs.type == INT) {
       if (rhs.value.i == 0) {
-         throw DivideByZero();
+         //throw DivideByZero();
       }
       return Number(value.i / rhs.value.i);
    } else if (type == FLOAT && rhs.type == FLOAT) {
@@ -164,18 +164,18 @@ Number Number::operator/(const Number& rhs) const {
    } else if (type == FLOAT && rhs.type == INT) {
       return Number(value.f / rhs.value.i);
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
 
 Number Number::operator%(const Number& rhs) const {
    if (type == INT && rhs.type == INT) {
       if (rhs.value.i == 0) {
-         throw ModByZero();
+         //throw ModByZero();
       }
       return Number(value.i % rhs.value.i);
    } else {
-      throw FloatingPointMod();
+      //throw FloatingPointMod();
    }
 }
 
@@ -189,7 +189,7 @@ Number Number::operator^(const Number& rhs) const {
    } else if (type == FLOAT && rhs.type == INT) {
       return Number(pow(value.f, rhs.value.i));
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
 
@@ -199,6 +199,6 @@ Number Number::operator-() const {
    } else if (type == FLOAT) {
       return Number(-value.f);
    } else {
-      throw UnknownType();
+      //throw UnknownType();
    }
 }
