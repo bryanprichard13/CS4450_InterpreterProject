@@ -1,3 +1,5 @@
+/*this is just the example code for testing purposes*/
+
 #ifndef NUMBER_H
 #define NUMBER_H
 
