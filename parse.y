@@ -43,10 +43,17 @@ void yyerror(const char* s, char c) {
 
 %%
 
-exp       : TOKEN_INT
-          | TOKEN_FLOAT
-          | TOKEN_STRING
-          | exp '+' exp {}
+exp       : 
+            '(' exp ')'    { $$ = $2; }
+          | TOKEN_INT      { $$ = new Constant($1); }
+          | TOKEN_FLOAT    { $$ = new Constant($1); }
+          | TOKEN_STRING   { $$ = new Identity($1); delete [] $1; }
+          | exp '+' exp    { $$ = new Addition($1, $3); }
+          | exp '-' exp    { $$ = new Subtraction($1, $3); }
+          | exp '*' exp    { $$ = new Multiplication($1, $3); }
+          | exp '/' exp    { $$ = new Division($1, $3); }
+          | exp '%' exp    { $$ = new Modulus($1, $3); }
+          | exp '^' exp    { $$ = new Exponent($1, $3); }
 
 
 %%
