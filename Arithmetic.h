@@ -4,3 +4,10 @@
 #include <string>
 #include <list>
 #include "number.h"
+
+class Arithmetic {
+
+};
+
+
+#endif
