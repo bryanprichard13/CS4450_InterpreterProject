@@ -27,9 +27,11 @@ void yyerror(const char* s, char c) {
 %}
 
 %union {
-     int            int_value;
-     float          float_value;
-     char*          string;
+     int                      int_value;
+     float                    float_value;
+     char*                    string;
+     ArithmeticExpression*    exp;
+     Statement*               stmt;
 }
 
 %token <int_value>       TOKEN_INT
