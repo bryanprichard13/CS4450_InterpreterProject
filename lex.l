@@ -8,7 +8,7 @@
 
     using std::string;
     using std::istringstream;
-    
+
     extern void yyerror(const char*, char);
 %}
 
@@ -34,6 +34,12 @@ float [0-9]*\.[0-9]+
 ","         { return yytext[0]; }
 "<"         { return yytext[0]; }
 ">"         { return yytext[0]; }
+"+="        { return PLUSEQ;    }
+"-="        { return MINUSEQ;   }
+"*="        { return TIMESEQ;   }
+"/="        { return DIVEQ;     }
+"^="        { return POWEQ;     }
+"%="        { return MODEQ;     }
 
 
 {identity}  { yylval.string = new char[strlen(yytext)+1];

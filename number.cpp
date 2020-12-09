@@ -70,9 +70,9 @@ Number Number::operator/(Number& number) {
 Number Number::operator%(Number& number) {
     switch(type){
         case (INT):
-            if (number.type == INT) { 
+            if (number.type == INT) {
                 if (number.value.i == 0) { /*throw ModByZero();*/}
-                return Number(value.i % number.value.i); 
+                return Number(value.i % number.value.i);
                 }
             else { /*throw FloatingPointMod(); */}
             break;
@@ -82,4 +82,40 @@ Number Number::operator%(Number& number) {
         default:
             //throw UnknownType();
     }
+}
+
+Number& Number::operator=(const Number& to_be_assigned) {
+   type  = to_be_assigned.type;
+   value = to_be_assigned.value;
+   return *this;
+}
+
+Number& Number::operator+=(const Number& to_be_assigned) {
+   *this = *this + to_be_assigned;
+   return *this;
+}
+
+Number& Number::operator-=(const Number& to_be_assigned) {
+   *this = *this - to_be_assigned;
+   return *this;
+}
+
+Number& Number::operator*=(const Number& to_be_assigned) {
+   *this = *this * to_be_assigned;
+   return *this;
+}
+
+Number& Number::operator/=(const Number& to_be_assigned) {
+   *this = *this / to_be_assigned;
+   return *this;
+}
+
+Number& Number::operator%=(const Number& to_be_assigned) {
+   *this = *this % to_be_assigned;
+   return *this;
+}
+
+Number& Number::operator^=(const Number& to_be_assigned) {
+   *this = *this ^ to_be_assigned;
+   return *this;
 }

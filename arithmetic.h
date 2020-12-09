@@ -15,7 +15,7 @@ class Number;
 class ArithmeticExpression {
 public:
    virtual ~ArithmeticExpression() {};
-   
+
    virtual Number check(const SymbolTable&) const = 0;
 
 protected:
@@ -47,7 +47,7 @@ class Negative : public ArithmeticExpression {
 public:
    Negative(ArithmeticExpression* e) : operand(e) { }
    ~Negative();
-   
+
    virtual Number check(const SymbolTable&) const;
 
 private:
