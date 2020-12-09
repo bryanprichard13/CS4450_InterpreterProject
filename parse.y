@@ -58,7 +58,6 @@ void yyerror(const char* s, char c) {
 %%
 
 statement : assign
-          | exp
           ;
 
 assign    : TOKEN_STRING '=' exp

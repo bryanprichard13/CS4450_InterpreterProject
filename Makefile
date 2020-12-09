@@ -1,16 +1,57 @@
 CXX = clang++
 LEX = flex
 YACC = bison -d
+CXXFLAGS = -Wall -Wextra -pedantic
+LEXFLAGS = -Wno-unused -Wno-sign-compare -x c++
 YACCFLAGS = -x c++
+
 PROGRAM = python_interpreter
 
-all: python_interpreter
+SRC = $(wildcard *.cpp)
+OBJ = $(SRC:.c=.o) parse.tab.o lex.yy.o
 
-parse.tab.c parse.tab.h: parse.y
-	bison -t -v -d parse.y
+all:	.depend $(PROGRAM)
 
-lex.yy.c: parse.tab.h lex.l
-	flex lex.l
+python_interpreter:	$(OBJ)
+	$(CXX) -o $(PROGRAM) $(OBJ)
 
-python_interpreter: lex.yy.c parse.tab.c parse.tab.h
-	g++ -o python_interpreter parse.tab.c lex.yy.c main.cpp
+parse.tab.c:	.depend parse.y
+	$(YACC) parse.y
+
+parse.tab.o:	parse.tab.c
+	$(CXX) $(CFLAGS) $(YACCFLAGS) -c parse.tab.c
+
+lex.yy.c:	lex.l parse.tab.o
+	$(LEX) lex.l
+
+lex.yy.o:	lex.yy.c
+	$(CXX) $(CFLAGS) $(LEXFLAGS) -c lex.yy.c
+
+clean:
+	rm -f $(OBJ) $(PROGRAM) .depend parse.tab.c lex.yy.c parse.tab.h
+	rm -rf doc
+
+doc:	doxygen
+	xdg-open doc/html/inherits.html &
+
+doxygen:
+	doxygen Doxyfile
+
+depend:
+	rm -f .depend
+	$(MAKE) .depend
+
+.depend:	$(SRC)
+	rm -f .depend
+	for src in $(SRC) ; do \
+		$(CXX) -M -MM $$src | tee -a .depend ; \
+	done
+
+statement.o:	CXXFLAGS+=-Wno-unused-parameter
+expression.o:	CXXFLAGS+=-Wno-unused-parameter
+
+ifneq ($(wildcard .depend),'')
+include .depend
+endif
+
+.PHONY:	all clean depend doc

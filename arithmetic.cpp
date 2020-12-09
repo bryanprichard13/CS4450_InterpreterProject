@@ -1,5 +1,5 @@
 #include "symbolTable.h"
-#include "expression.h"
+#include "arithmetic.h"
 
 Number Constant::check(const SymbolTable &st) const {
    return num;

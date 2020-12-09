@@ -1,5 +1,5 @@
-#ifndef EXPRESSION_H
-#define EXPRESSION_H
+#ifndef ARITHMETIC_H
+#define ARITHMETIC_H
 
 #include <string>
 #include <list>
