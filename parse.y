@@ -30,8 +30,8 @@ void yyerror(const char* s, char c) {
      int                      int_value;
      float                    float_value;
      char*                    string;
-     ArithmeticExpression*    exp;
-     Statement*               stmt;
+     ArithmeticExpression*    expression;
+     Statement*               statement;
 }
 
 %token <int_value>       TOKEN_INT
@@ -43,6 +43,7 @@ void yyerror(const char* s, char c) {
 %nonassoc UMINUS
 
 %type <expression> exp
+%type <statement>  stmt
 
 %%
 
