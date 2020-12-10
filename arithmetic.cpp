@@ -14,7 +14,7 @@ Negative::~Negative() {
 }
 
 Number Negative::check(const SymbolTable& st) const {
-   return -(operand->check(st));
+   return Number(-1) * (operand->check(st));
 }
 
 

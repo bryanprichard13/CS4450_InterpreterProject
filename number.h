@@ -24,20 +24,20 @@ public:
    Number(const int    input) : type(INT),   value(input) { }
    Number(const double input) : type(FLOAT), value(input) { }
 
-   Number  operator+  (Number&);
-   Number  operator-  (Number&);
-   Number  operator*  (Number&);
-   Number  operator/  (Number&);
-   Number  operator%  (Number&);
-   Number  operator^  (Number&);
+   Number  operator+  (const Number&);
+   Number  operator-  (const Number&);
+   Number  operator*  (const Number&);
+   Number  operator/  (const Number&);
+   Number  operator%  (const Number&);
+   Number  operator^  (const Number&);
 
-   Number& operator=  (Number&);
-   Number& operator+= (Number&);
-   Number& operator-= (Number&);
-   Number& operator*= (Number&);
-   Number& operator/= (Number&);
-   Number& operator^= (Number&);
-   Number& operator%= (Number&);
+   Number& operator=  (const Number&);
+   Number& operator+= (const Number&);
+   Number& operator-= (const Number&);
+   Number& operator*= (const Number&);
+   Number& operator/= (const Number&);
+   Number& operator^= (const Number&);
+   Number& operator%= (const Number&);
 
    friend bool     operator<  (Number&, Number&);
    friend bool     operator<= (Number&, Number&);
@@ -46,7 +46,7 @@ public:
    friend bool     operator== (Number&, Number&);
    friend bool     operator!= (Number&, Number&);
 
-   
+
 
 private:
    Type  type;

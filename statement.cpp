@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include "number.h"
+// #include "number.h"
 #include "symbolTable.h"
 #include "arithmetic.h"
 #include "statement.h"
