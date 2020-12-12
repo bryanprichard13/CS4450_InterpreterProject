@@ -42,6 +42,7 @@ float [0-9]*\.[0-9]+
 "/="        { return DIVEQ;     }
 "^="        { return POWEQ;     }
 "%="        { return MODEQ;     }
+"print"     { return PRINT;     }
 
 
 {identity}  { yylval.string = new char[strlen(yytext)+1];

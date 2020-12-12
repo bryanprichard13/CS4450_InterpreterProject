@@ -22,6 +22,23 @@ protected:
    ArithmeticExpression() { };
 };
 
+class ExpressionList {
+public:
+   ExpressionList() { }
+   ~ExpressionList();
+
+   void add(ArithmeticExpression* exp);
+
+   unsigned int size() const;
+
+   list<ArithmeticExpression*>::const_iterator begin() const;
+   list<ArithmeticExpression*>::const_iterator end()   const;
+
+private:
+   list<ArithmeticExpression*> expList;
+};
+
+
 
 class Constant : public ArithmeticExpression {
 public:
@@ -58,7 +75,7 @@ class BinaryExpression : public ArithmeticExpression {
 public:
    ~BinaryExpression();
 
-   virtual Number check(const SymbolTable&) const;
+   virtual Number check(const SymbolTable&) const = 0;
 
 protected:
    BinaryExpression(ArithmeticExpression* e1, ArithmeticExpression* e2) : operand1(e1), operand2(e2) { }

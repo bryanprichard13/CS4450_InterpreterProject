@@ -89,6 +89,17 @@ Number Number::operator%(const Number& number) {
     }
 }
 
+ostream& operator<<(ostream& out, const Number& num) {
+   if (num.type == INT) {
+      return out << num.value.i;
+   } else if (num.type == FLOAT) {
+      return out << fixed << num.value.d;
+   } else {
+      // throw UnknownType();
+      exit(EXIT_FAILURE);
+   }
+}
+
 Number Number::operator^(const Number& number) {
     switch(type){
         case (INT):
@@ -104,6 +115,7 @@ Number Number::operator^(const Number& number) {
             exit(EXIT_FAILURE);
     }
 }
+
 
 Number& Number::operator=(const Number& to_be_assigned) {
    type  = to_be_assigned.type;

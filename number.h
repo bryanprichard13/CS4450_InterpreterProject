@@ -39,6 +39,7 @@ public:
    Number& operator^= (const Number&);
    Number& operator%= (const Number&);
 
+   friend ostream& operator<< (ostream&,      const Number&);
    friend bool     operator<  (Number&, Number&);
    friend bool     operator<= (Number&, Number&);
    friend bool     operator>  (Number&, Number&);

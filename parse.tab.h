@@ -48,7 +48,8 @@
      DIVEQ = 264,
      POWEQ = 265,
      MODEQ = 266,
-     UMINUS = 267
+     PRINT = 267,
+     UMINUS = 268
    };
 #endif
 /* Tokens.  */
@@ -61,23 +62,26 @@
 #define DIVEQ 264
 #define POWEQ 265
 #define MODEQ 266
-#define UMINUS 267
+#define PRINT 267
+#define UMINUS 268
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 31 "parse.y"
+#line 32 "parse.y"
 {
      int                       int_value;
      float                   float_value;
      char*                        string;
      ArithmeticExpression*    expression;
      Statement*                statement;
+     StatementList*       statement_list;
+     ExpressionList*            exp_list;
 }
 /* Line 1529 of yacc.c.  */
-#line 81 "parse.tab.h"
+#line 85 "parse.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

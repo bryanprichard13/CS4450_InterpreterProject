@@ -25,6 +25,17 @@ protected:
   int line;
 };
 
+class StatementList {
+public:
+   ~StatementList();
+
+   void check(SymbolTable&) const;
+   void add(Statement*);
+
+private:
+   list<Statement*> stmtList;
+};
+
 class Assignment : public Statement {
 public:
   Assignment(const string& str, ArithmeticExpression *e) : name(str), arithExp(e) {}
@@ -37,4 +48,16 @@ private:
   ArithmeticExpression* arithExp;
 
 };
+
+class Print : public Statement {
+public:
+   Print(ArithmeticExpression* exp) : expression(exp) { }
+   ~Print();
+
+   void check(SymbolTable&) const;
+
+private:
+   ArithmeticExpression* expression;
+};
+
 #endif
