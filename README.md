@@ -7,7 +7,6 @@ Members:
 Bryan Prichard (The All C-ing Eye),   
 Christian Caldwell (The REACTor),   
 Micah Tamerius (Python, Pythoff),   
-Ben Frailey (R ya ready, kids?), 
-Joshua Hickman  
+Ben Frailey (R ya ready, kids?),  
 
 Language Selection: C++
