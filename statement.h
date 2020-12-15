@@ -7,11 +7,12 @@
 using std::string;
 using std::list;
 
-<<<<<<< HEAD
 extern int yylineno;
 
 class SymbolTable;
 class ArithmeticExpression;
+class ExpressionList;
+class Number;
 
 class Statement {
 public:
@@ -26,6 +27,17 @@ protected:
   int line;
 };
 
+class StatementList {
+public:
+   ~StatementList();
+
+   void check(SymbolTable&) const;
+   void add(Statement*);
+
+private:
+   list<Statement*> stmtList;
+};
+
 class Assignment : public Statement {
 public:
   Assignment(const string& str, ArithmeticExpression *e) : name(str), arithExp(e) {}
@@ -38,10 +50,7 @@ private:
   ArithmeticExpression* arithExp;
 
 };
-=======
-class SymbolTable;
-class ExpressionList;
-class Number; 
+
 
 class IfElse : public Statement {
 public:
@@ -92,6 +101,4 @@ public:
 private:
    Expression* exp;
 };
-
->>>>>>> 0b6cd257b414dd0560932edb846f961a0d763a3b
 #endif

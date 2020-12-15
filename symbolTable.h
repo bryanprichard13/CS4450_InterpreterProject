@@ -3,10 +3,11 @@
 
 #include <map>
 #include <string>
-#include "number.h"
 
 using std::map;
 using std::string;
+
+class Number;
 
 class SymbolTable {
 public:

@@ -6,6 +6,7 @@
 #include "arithmetic.h"
 #include "statement.h"
 
+using std::cout;
 using std::cerr;
 using std::endl;
 
@@ -34,6 +35,8 @@ void yyerror(const char* s, char c) {
      char*                        string;
      ArithmeticExpression*    expression;
      Statement*                statement;
+     StatementList*       statement_list;
+     ExpressionList*            exp_list;
 }
 
 %token <int_value>       TOKEN_INT
@@ -45,6 +48,7 @@ void yyerror(const char* s, char c) {
 %token DIVEQ   "/="
 %token POWEQ   "^="
 %token MODEQ   "%="
+%token PRINT   "print"
 
 
 %left '+' '-'
@@ -54,11 +58,28 @@ void yyerror(const char* s, char c) {
 %type <expression> exp
 %type <statement> statement
 %type <statement> assign
+%type <statement> print
+%type <statement_list> statement_list
+%type <exp_list> exp_list
 
 %%
 
 statement : assign
+          | print
           ;
+
+statement_list  : statement_list statement
+                     {
+                     $1->add($2);
+                     $$ = $1;
+                     }
+                | statement
+                     {
+                     StatementList* sl = new StatementList;
+                     sl->add($1);
+                     $$ = sl;
+                     }
+                ;
 
 assign    : TOKEN_STRING '=' exp
             {
@@ -114,6 +135,25 @@ exp       :
           | exp '%' exp          { $$ = new Mod($1, $3); }
           | exp '^' exp          { $$ = new Exponent($1, $3); }
           | '-' exp %prec UMINUS { $$ = new Negative($2); };
+
+print     : PRINT exp
+              {
+              cout << "HEY";
+              $$ = new Print($2); }
+          ;
+
+exp_list : /* empty*/
+                     { $$ = new ExpressionList(); }
+                | exp_list ',' exp
+                     { $1->add($3);
+                       $$ = $1;
+                     }
+                | exp
+                     { ExpressionList* el = new ExpressionList();
+                       el->add($1);
+                       $$ = el;
+                     }
+                ;
 
 
 %%

@@ -4,6 +4,7 @@ using std::cerr;
 using std::endl;
 
 extern FILE* yyin;
+// extern int parseResult;
 extern int yyparse();
 
 int main(int argc, char** argv) {
@@ -16,7 +17,7 @@ int main(int argc, char** argv) {
             cerr<<"The file you have provided can't be opened. Please try again or use a different file."<<endl;
             return 0;
         }
-    } 
+    }
     // check if the user has provided too many arguments
     else if (argc > 3) {
         cerr<<"Too many arguments, please only provide a file.";
@@ -26,4 +27,7 @@ int main(int argc, char** argv) {
         cerr<<"You need to provide a file for the program to interpret."<<endl;
     }
 
+    yyparse();
+
+    // return parseResult;
 }
