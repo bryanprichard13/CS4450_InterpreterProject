@@ -3,7 +3,11 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include "arithmetic.h"
+#include "conditional.h"
+#include "statement.h"
 
+using std::cout;
 using std::cerr;
 using std::endl;
 
@@ -27,24 +31,115 @@ void yyerror(const char* s, char c) {
 %}
 
 %union {
-     int            int_value;
-     float          float_value;
-     char*          string;
+     int                       int_value;
+     float                   float_value;
+     char*                        string;
+     ArithmeticExpression*    expression;
+     Statement*                statement;
+     StatementList*       statement_list;
+     ExpressionList*            exp_list;
 }
 
 %token <int_value>       TOKEN_INT
 %token <float_value>     TOKEN_FLOAT
-%token <string_value>    TOKEN_STRING
+%token <string>    TOKEN_STRING
+%token PLUSEQ  "+="
+%token MINUSEQ "-="
+%token TIMESEQ  "*="
+%token DIVEQ   "/="
+%token POWEQ   "^="
+%token MODEQ   "%="
+%token LE      "<="
+%token GE      ">="
+%token EQ      "=="
+%token NE      "!="
+%token PRINT   "print"
+%token LESSEQ  "<="
+%token GREATEQ ">="
+%token EQ      "=="
+%token NOTEQ   "!="
+%token IF      "if"
+%token ELSE    "else"
+%token WHILE   "while"
+%token END     "end"
 
 %left '+' '-'
 %left '*' '/' '%' '^'
 %nonassoc UMINUS
 
 %type <expression> exp
+%type <statement> statement
+%type <statement> assign
+%type <statement> print
+%type <statement> if_else
+%type <statement> while
+%type <statement_list> statement_list
+%type <exp_list> exp_list
 
 %%
 
-exp       : 
+statement : assign
+          | print
+          | if_else
+          | while
+          ;
+
+statement_list  : statement_list statement
+                     {
+                     $1->add($2);
+                     $$ = $1;
+                     }
+                | statement
+                     {
+                     StatementList* sl = new StatementList;
+                     sl->add($1);
+                     $$ = sl;
+                     }
+                ;
+
+assign    : TOKEN_STRING '=' exp
+            {
+              $$ = new Assignment($1, $3);
+              delete [] $1;
+            }
+
+          | TOKEN_STRING PLUSEQ exp
+            {
+              $$ = new Assignment($1, new Add(new Identity($1), $3));
+              delete [] $1;
+            }
+
+          | TOKEN_STRING MINUSEQ exp
+            {
+              $$ = new Assignment($1, new Subtract(new Identity($1), $3));
+              delete [] $1;
+            }
+
+          | TOKEN_STRING TIMESEQ exp
+            {
+              $$ = new Assignment($1, new Multiply(new Identity($1), $3));
+              delete [] $1;
+            }
+
+          | TOKEN_STRING DIVEQ exp
+            {
+              $$ = new Assignment($1, new Divide(new Identity($1), $3));
+              delete [] $1;
+            }
+
+          | TOKEN_STRING POWEQ exp
+            {
+              $$ = new Assignment($1, new Exponent(new Identity($1), $3));
+              delete [] $1;
+            }
+
+          | TOKEN_STRING MODEQ exp
+            {
+              $$ = new Assignment($1, new Mod(new Identity($1), $3));
+              delete [] $1;
+            };
+
+exp       :
             '(' exp ')'          { $$ = $2; }
           | TOKEN_INT            { $$ = new Constant($1); }
           | TOKEN_FLOAT          { $$ = new Constant($1); }
@@ -55,7 +150,55 @@ exp       :
           | exp '/' exp          { $$ = new Divide($1, $3); }
           | exp '%' exp          { $$ = new Mod($1, $3); }
           | exp '^' exp          { $$ = new Exponent($1, $3); }
-          | '-' exp %prec UMINUS { $$ = new Negative($2); }
+          | exp '<' exp          { $$ = new LessThan($1, $3); }
+          | exp '>' exp          { $$ = new GreaterThan($1, $3); }
+          | exp LE exp           { $$ = new LessThanOrEqualTo($1, $3); }
+          | exp GE exp           { $$ = new GreaterThanOrEqualTo($1, $3); }
+          | exp EQ exp           { $$ = new Equals($1, $3); }
+          | exp NE exp           { $$ = new NotEquals($1, $3); }
+          | '-' exp %prec UMINUS { $$ = new Negative($2); };
+
+print     : PRINT exp
+              {
+              cout << "HEY";
+              $$ = new Print($2); }
+          ;
+
+if_else   : IF exp ':' statement_list ELSE ':' statement_list END
+                     { $$ = new IfElse($2, $4, $7); }
+          | IF exp ':' ELSE ':' statement_list END
+               { $$ = new IfElse($2, new StatementList(), $6); }
+          | IF exp ':' statement_list ELSE ':' END
+               { $$ = new IfElse($2, $4, new StatementList()); }
+          | IF exp ':' ELSE ':' END
+               { $$ = new IfElse($2, new StatementList(), new StatementList()); }
+          | IF exp ':' statement_list END
+               { $$ = new IfElse($2, $4); }
+          | IF exp ':' END
+               { $$ = new IfElse($2, new StatementList()); }
+
+while           : WHILE exp ':' statement_list END
+                    { $$ = new While($2, $4); }
+                | WHILE exp ':' END
+                    { $$ = new While($2, new StatementList()); }
+
+for             : FOR exp ':' statement_list END
+                    { $$ = new FOR($2, $4);   }
+                  FOR exp ':' END
+                    { $$ = new While($2, new StatementList()); }
+
+exp_list : /* empty*/
+                     { $$ = new ExpressionList(); }
+                | exp_list ',' exp
+                     { $1->add($3);
+                       $$ = $1;
+                     }
+                | exp
+                     { ExpressionList* el = new ExpressionList();
+                       el->add($1);
+                       $$ = el;
+                     }
+                ;
 
 
 %%
