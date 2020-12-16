@@ -156,13 +156,13 @@ bool operator==(const Number& lhs, const Number& rhs) {
    if (lhs.type == INT && rhs.type == INT) {
       return lhs.value.i == rhs.value.i;
    } else if (lhs.type == FLOAT && rhs.type == FLOAT) {
-      return lhs.value.f == rhs.value.f;
+      return lhs.value.d == rhs.value.d;
    } else if (lhs.type == INT && rhs.type == FLOAT) {
-      return lhs.value.i == rhs.value.f;
+      return lhs.value.d == rhs.value.d;
    } else if (lhs.type == FLOAT && rhs.type == INT) {
-      return lhs.value.f == rhs.value.i;
+      return lhs.value.d == rhs.value.d;
    } else {
-      //throw UnknownType();
+      return false;
    }
 }
 
@@ -174,13 +174,13 @@ bool operator<(const Number& lhs, const Number& rhs) {
    if (lhs.type == INT && rhs.type == INT) {
       return lhs.value.i < rhs.value.i;
    } else if (lhs.type == FLOAT && rhs.type == FLOAT) {
-      return lhs.value.f < rhs.value.f;
+      return lhs.value.d < rhs.value.d;
    } else if (lhs.type == INT && rhs.type == FLOAT) {
-      return lhs.value.i < rhs.value.f;
+      return lhs.value.i < rhs.value.d;
    } else if (lhs.type == FLOAT && rhs.type == INT) {
-      return lhs.value.f < rhs.value.i;
+      return lhs.value.d < rhs.value.i;
    } else {
-      //throw UnknownType();
+      return false;
    }
 }
 
@@ -188,13 +188,13 @@ bool operator>(const Number& lhs, const Number& rhs) {
    if (lhs.type == INT && rhs.type == INT) {
       return lhs.value.i > rhs.value.i;
    } else if (lhs.type == FLOAT && rhs.type == FLOAT) {
-      return lhs.value.f > rhs.value.f;
+      return lhs.value.d > rhs.value.d;
    } else if (lhs.type == INT && rhs.type == FLOAT) {
-      return lhs.value.i > rhs.value.f;
+      return lhs.value.i > rhs.value.d;
    } else if (lhs.type == FLOAT && rhs.type == INT) {
-      return lhs.value.f > rhs.value.i;
+      return lhs.value.d > rhs.value.i;
    } else {
-      //throw UnknownType();
+      return false;
    }
 }
 

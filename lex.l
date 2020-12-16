@@ -42,7 +42,16 @@ float [0-9]*\.[0-9]+
 "/="        { return DIVEQ;     }
 "^="        { return POWEQ;     }
 "%="        { return MODEQ;     }
+"^="        { return POWEQ;     }
 "print"     { return PRINT;     }
+"<="        { return LESSEQ;    }
+">="        { return GREATEQ;   }
+"=="        { return EQ;        }
+"!="        { return NOTEQ;     }
+"if"        { return IF;        }
+"else"      { return ELSE;      }
+"while"     { return WHILE;     }
+"end"       { return END;       }
 
 
 {identity}  { yylval.string = new char[strlen(yytext)+1];

@@ -2,10 +2,7 @@
 #include "symbolTable.h"
 #include "arithmetic.h"
 
-using std::cout;
-
 Number Constant::check(const SymbolTable &st) const {
-  cout << "HEY";
    return num;
 }
 

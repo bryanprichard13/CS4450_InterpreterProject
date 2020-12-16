@@ -49,7 +49,14 @@ void yyerror(const char* s, char c) {
 %token POWEQ   "^="
 %token MODEQ   "%="
 %token PRINT   "print"
-
+%token LESSEQ  "<="
+%token GREATEQ ">="
+%token EQ      "=="
+%token NOTEQ   "!="
+%token IF      "if"
+%token ELSE    "else"
+%token WHILE   "while"
+%token END     "end"
 
 %left '+' '-'
 %left '*' '/' '%' '^'
@@ -59,6 +66,8 @@ void yyerror(const char* s, char c) {
 %type <statement> statement
 %type <statement> assign
 %type <statement> print
+%type <statement> if_else
+%type <statement> while
 %type <statement_list> statement_list
 %type <exp_list> exp_list
 
@@ -66,6 +75,8 @@ void yyerror(const char* s, char c) {
 
 statement : assign
           | print
+          | if_else
+          | while
           ;
 
 statement_list  : statement_list statement
@@ -141,6 +152,24 @@ print     : PRINT exp
               cout << "HEY";
               $$ = new Print($2); }
           ;
+
+if_else   : IF exp ':' statement_list ELSE ':' statement_list END
+                     { $$ = new IfElse($2, $4, $7); }
+          | IF exp ':' ELSE ':' statement_list END
+               { $$ = new IfElse($2, new StatementList(), $6); }
+          | IF exp ':' statement_list ELSE ':' END
+               { $$ = new IfElse($2, $4, new StatementList()); }
+          | IF exp ':' ELSE ':' END
+               { $$ = new IfElse($2, new StatementList(), new StatementList()); }
+          | IF exp ':' statement_list END
+               { $$ = new IfElse($2, $4); }
+          | IF exp ':' END
+               { $$ = new IfElse($2, new StatementList()); }
+
+while           : WHILE exp ':' statement_list END
+                    { $$ = new While($2, $4); }
+                | WHILE exp ':' END
+                    { $$ = new While($2, new StatementList()); }
 
 exp_list : /* empty*/
                      { $$ = new ExpressionList(); }

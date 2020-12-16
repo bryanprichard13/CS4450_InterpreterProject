@@ -1,12 +1,8 @@
 #include <iostream>
 #include <cstdlib>
-<<<<<<< HEAD
-#include <number.h>
-#include <arithmetic.h>
-#include <statement.h>
-=======
-// #include "number.h"
->>>>>>> frailey-dev
+#include "number.h"
+#include "arithmetic.h"
+#include "statement.h"
 #include "symbolTable.h"
 
 int Statement::getLine() const {
@@ -19,16 +15,10 @@ Assignment::~Assignment() {
 
 void Assignment::check(SymbolTable&st) const {
   st[name] = arithExp->check(st);
-  cout << "HEY";
 }
 
 Print::~Print() {
-   delete expression;
-}
-
-void Print::check(SymbolTable& st) const {
-   Number n(expression->check(st));
-   cout << ">> " << n << endl;
+   delete exp;
 }
 
 StatementList::~StatementList() {
@@ -60,6 +50,12 @@ void StatementList::check(SymbolTable& st) const {
 using std::cout;
 using std::endl;
 
+IfElse::~IfElse() {
+  delete condition;
+  delete trueList;
+  delete falseList;
+}
+
 // IF ELSE statements
 void IfElse::check(SymbolTable& st) const {
    if (condition->check(st) > 0) {
@@ -69,6 +65,10 @@ void IfElse::check(SymbolTable& st) const {
    }
 }
 
+While::~While() {
+  delete condition;
+  delete stmtList;
+}
 // WHILE statements
 void While::check(SymbolTable& st) const {
    while (condition->check(st) > 0) {
