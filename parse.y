@@ -62,6 +62,7 @@ void yyerror(const char* s, char c) {
 %token ELSE    "else"
 %token WHILE   "while"
 %token END     "end"
+%token FOR     "for"
 
 %left '+' '-'
 %left '*' '/' '%' '^'
@@ -82,6 +83,7 @@ statement : assign
           | print
           | if_else
           | while
+          | for
           ;
 
 statement_list  : statement_list statement
@@ -183,9 +185,9 @@ while           : WHILE exp ':' statement_list END
                     { $$ = new While($2, new StatementList()); }
 
 for             : FOR exp ':' statement_list END
-                    { $$ = new FOR($2, $4);   }
-                  FOR exp ':' END
-                    { $$ = new While($2, new StatementList()); }
+                    { $$ = new For$2, $4);   }
+                | FOR exp ':' END
+                    { $$ = new For($2, new StatementList()); }
 
 exp_list : /* empty*/
                      { $$ = new ExpressionList(); }
