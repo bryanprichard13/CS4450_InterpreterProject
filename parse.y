@@ -49,10 +49,6 @@ void yyerror(const char* s, char c) {
 %token DIVEQ   "/="
 %token POWEQ   "^="
 %token MODEQ   "%="
-%token LE      "<="
-%token GE      ">="
-%token EQ      "=="
-%token NE      "!="
 %token PRINT   "print"
 %token LESSEQ  "<="
 %token GREATEQ ">="
@@ -74,6 +70,7 @@ void yyerror(const char* s, char c) {
 %type <statement> print
 %type <statement> if_else
 %type <statement> while
+%type <statement> for
 %type <statement_list> statement_list
 %type <exp_list> exp_list
 
@@ -154,16 +151,16 @@ exp       :
           | exp '^' exp          { $$ = new Exponent($1, $3); }
           | exp '<' exp          { $$ = new LessThan($1, $3); }
           | exp '>' exp          { $$ = new GreaterThan($1, $3); }
-          | exp LE exp           { $$ = new LessThanOrEqualTo($1, $3); }
-          | exp GE exp           { $$ = new GreaterThanOrEqualTo($1, $3); }
+          | exp LESSEQ exp           { $$ = new LessThanOrEqualTo($1, $3); }
+          | exp GREATEQ exp           { $$ = new GreaterThanOrEqualTo($1, $3); }
           | exp EQ exp           { $$ = new Equals($1, $3); }
-          | exp NE exp           { $$ = new NotEquals($1, $3); }
+          | exp NOTEQ exp           { $$ = new NotEquals($1, $3); }
           | '-' exp %prec UMINUS { $$ = new Negative($2); };
 
 print     : PRINT exp
               {
-              cout << "HEY";
-              $$ = new Print($2); }
+              $$ = new Print($2);
+              }
           ;
 
 if_else   : IF exp ':' statement_list ELSE ':' statement_list END
@@ -185,7 +182,7 @@ while           : WHILE exp ':' statement_list END
                     { $$ = new While($2, new StatementList()); }
 
 for             : FOR exp ':' statement_list END
-                    { $$ = new For$2, $4);   }
+                    { $$ = new For($2, $4);   }
                 | FOR exp ':' END
                     { $$ = new For($2, new StatementList()); }
 

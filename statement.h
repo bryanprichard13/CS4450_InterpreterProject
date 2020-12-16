@@ -55,8 +55,9 @@ private:
 class IfElse : public Statement {
 public:
 
-   IfElse(Expression *cond, StatementList* tList, StatementList* fList) : condition(cond), trueList(tList), falseList(fList) { }
-   IfElse(Expression *cond, StatementList* tList) : condition(cond), trueList(tList), falseList(new StatementList()) { }
+   IfElse(ArithmeticExpression *cond, StatementList* tList, StatementList* fList) : condition(cond), trueList(tList), falseList(fList) { }
+   IfElse(ArithmeticExpression *cond, StatementList* tList) : condition(cond), trueList(tList), falseList(new StatementList()) { }
+   ~IfElse();
 
    void check(SymbolTable&) const;
 
@@ -70,7 +71,8 @@ private:
 class While : public Statement {
 public:
 
-   While(Expression* cond, StatementList* sList) : condition(cond), stmtList(sList) { }
+   While(ArithmeticExpression* cond, StatementList* sList) : condition(cond), stmtList(sList) { }
+   ~While();
 
    void check(SymbolTable&) const;
 
@@ -82,23 +84,26 @@ private:
 class For : public Statement {
 public:
 
-   For(Expression* cond, Expression* state, Expression* action StatementList* sList) : condition(cond), condition(state), condition(action), stmtList(sList) { }
+   For(ArithmeticExpression* cond, ArithmeticExpression* stat, ArithmeticExpression* act, StatementList* sList) : condition(cond), state(stat), action(act), stmtList(sList) { }
 
    void check(SymbolTable&) const;
 
 private:
-   Expression*    condition;
+   ArithmeticExpression*    condition;
+   ArithmeticExpression*    state;
+   ArithmeticExpression*    action;
    StatementList* stmtList;
 };
 
 class Print : public Statement {
 public:
-   Print(Expression* e) : exp(e) { }
+   Print(ArithmeticExpression* e) : exp(e) { }
+   ~Print();
 
-   void check(SymbolTable&, FunctionTable&) const;
+   void check(SymbolTable&) const;
 
 private:
-   Expression* exp;
+   ArithmeticExpression* exp;
 };
 
 #endif
