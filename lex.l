@@ -52,6 +52,7 @@ float [0-9]*\.[0-9]+
 "else"      { return ELSE;      }
 "while"     { return WHILE;     }
 "end"       { return END;       }
+"for"       { return FOR;       }
 
 
 {identity}  { yylval.string = new char[strlen(yytext)+1];
