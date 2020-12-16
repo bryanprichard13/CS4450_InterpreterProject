@@ -1,6 +1,0 @@
-arithmetic.o: arithmetic.cpp symbolTable.h arithmetic.h number.h
-main.o: main.cpp
-number.o: number.cpp number.h
-statement.o: statement.cpp symbolTable.h arithmetic.h number.h \
-  statement.h
-symbolTable.o: symbolTable.cpp symbolTable.h number.h
