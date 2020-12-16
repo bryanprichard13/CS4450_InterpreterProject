@@ -72,7 +72,6 @@ void yyerror(const char* s, char c) {
 %type <statement> while
 %type <statement> for
 %type <statement_list> statement_list
-%type <exp_list> exp_list
 
 %%
 
@@ -185,19 +184,5 @@ for             : FOR exp ';' exp ';' exp ':' statement_list END
                     { $$ = new For($2, $4, $6, $8);   }
                 | FOR exp ';' exp ';' exp ':' END
                     { $$ = new For($2, $4, $6, new StatementList()); }
-
-exp_list : /* empty*/
-                     { $$ = new ExpressionList(); }
-                | exp_list ',' exp
-                     { $1->add($3);
-                       $$ = $1;
-                     }
-                | exp
-                     { ExpressionList* el = new ExpressionList();
-                       el->add($1);
-                       $$ = el;
-                     }
-                ;
-
 
 %%
