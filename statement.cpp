@@ -76,14 +76,15 @@ void While::check(SymbolTable& st) const {
    }
 }
 
+// FOR Statements
+void For::check(SymbolTable& st) const {
+   for (condition->check(state); condition->check(st); condition->check(action) {
+      stmtList->check(st);
+   } 
+}
+
 // PRINT statements
 void Print::check(SymbolTable& st) const {
    Number n(exp->check(st));
    cout << ">> " << n << endl;
-}
-
-// COMMENTS
-void Comment::check(SymbolTable& st) const {
-   Number n(exp->check(st));
-   cout << "#" << n << endl;
 }
