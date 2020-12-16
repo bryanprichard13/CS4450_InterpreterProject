@@ -78,7 +78,7 @@ void While::check(SymbolTable& st) const {
 
 // FOR Statements
 void For::check(SymbolTable& st) const {
-   for (condition->check(state); condition->check(st); condition->check(action)) {
+   for (condition->check(st); state->check(st) > 0; action->check(st)) {
       stmtList->check(st);
    }
 }
