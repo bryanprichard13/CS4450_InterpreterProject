@@ -139,6 +139,12 @@ exp       :
           | exp '/' exp          { $$ = new Divide($1, $3); }
           | exp '%' exp          { $$ = new Mod($1, $3); }
           | exp '^' exp          { $$ = new Exponent($1, $3); }
+          | exp '<' exp          { $$ = new LessThan($1, $3); }
+          | exp '>' exp          { $$ = new GreaterThan($1, $3); }
+          | exp LE exp           { $$ = new LessThanOrEqualTo($1, $3); }
+          | exp GE exp           { $$ = new GreaterThanOrEqualTo($1, $3); }
+          | exp EQ exp           { $$ = new Equals($1, $3); }
+          | exp NE exp           { $$ = new NotEquals($1, $3); }
           | '-' exp %prec UMINUS { $$ = new Negative($2); };
 
 print     : PRINT exp
