@@ -9,7 +9,6 @@ using std::string;
 using std::list;
 
 class SymbolTable;
-class ExpressionList;
 class Number;
 
 class Expression {
