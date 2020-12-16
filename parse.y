@@ -181,10 +181,10 @@ while           : WHILE exp ':' statement_list END
                 | WHILE exp ':' END
                     { $$ = new While($2, new StatementList()); }
 
-for             : FOR exp ':' statement_list END
-                    { $$ = new For($2, $4);   }
-                | FOR exp ':' END
-                    { $$ = new For($2, new StatementList()); }
+for             : FOR exp ';' exp ';' exp ':' statement_list END
+                    { $$ = new For($2, $4, $6, $8);   }
+                | FOR exp ';' exp ';' exp ':' END
+                    { $$ = new For($2, $4, $6, new StatementList()); }
 
 exp_list : /* empty*/
                      { $$ = new ExpressionList(); }
