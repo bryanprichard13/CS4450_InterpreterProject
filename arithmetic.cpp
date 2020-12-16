@@ -1,4 +1,3 @@
-#include <iostream>
 #include "symbolTable.h"
 #include "arithmetic.h"
 
@@ -46,26 +45,4 @@ Number Mod::check(const SymbolTable& st) const {
 
 Number Exponent::check(const SymbolTable& st) const {
    return operand1->check(st) ^ operand2->check(st);
-}
-
-void ExpressionList::add(ArithmeticExpression* exp) {
-   expList.push_back(exp);
-}
-
-unsigned int ExpressionList::size() const {
-   return expList.size();
-}
-
-list<ArithmeticExpression*>::const_iterator ExpressionList::begin() const {
-   return expList.begin();
-}
-
-list<ArithmeticExpression*>::const_iterator ExpressionList::end() const {
-   return expList.end();
-}
-
-ExpressionList::~ExpressionList() {
-   for (list<ArithmeticExpression*>::iterator it = expList.begin(); it != expList.end(); ++it) {
-      delete *it;
-   }
 }

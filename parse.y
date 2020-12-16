@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "arithmetic.h"
+#include "conditional.h"
 #include "statement.h"
 
 using std::cout;
@@ -48,6 +49,10 @@ void yyerror(const char* s, char c) {
 %token DIVEQ   "/="
 %token POWEQ   "^="
 %token MODEQ   "%="
+%token LE      "<="
+%token GE      ">="
+%token EQ      "=="
+%token NE      "!="
 %token PRINT   "print"
 %token LESSEQ  "<="
 %token GREATEQ ">="
@@ -145,6 +150,12 @@ exp       :
           | exp '/' exp          { $$ = new Divide($1, $3); }
           | exp '%' exp          { $$ = new Mod($1, $3); }
           | exp '^' exp          { $$ = new Exponent($1, $3); }
+          | exp '<' exp          { $$ = new LessThan($1, $3); }
+          | exp '>' exp          { $$ = new GreaterThan($1, $3); }
+          | exp LE exp           { $$ = new LessThanOrEqualTo($1, $3); }
+          | exp GE exp           { $$ = new GreaterThanOrEqualTo($1, $3); }
+          | exp EQ exp           { $$ = new Equals($1, $3); }
+          | exp NE exp           { $$ = new NotEquals($1, $3); }
           | '-' exp %prec UMINUS { $$ = new Negative($2); };
 
 print     : PRINT exp

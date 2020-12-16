@@ -11,7 +11,6 @@ using std::list;
 
 class BinaryExpression;
 class SymbolTable;
-class ExpressionList;
 class Number;
 
 class LessThan : public BinaryExpression {
