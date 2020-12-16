@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "arithmetic.h"
+#include "conditional.h"
 #include "statement.h"
 
 using std::cout;
@@ -48,6 +49,10 @@ void yyerror(const char* s, char c) {
 %token DIVEQ   "/="
 %token POWEQ   "^="
 %token MODEQ   "%="
+%token LE      "<="
+%token GE      ">="
+%token EQ      "=="
+%token NE      "!="
 %token PRINT   "print"
 
 
