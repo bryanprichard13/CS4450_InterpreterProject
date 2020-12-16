@@ -5,12 +5,22 @@ Number Constant::check(const SymbolTable &st) const {
    return num;
 }
 
-Number Identifier::check(const SymbolTable& st) const {
+Number Identity::check(const SymbolTable& st) const {
    return st[name];
 }
 
-Number Negation::check(const SymbolTable& st) const {
-   return -(negative->check(st));
+Negative::~Negative() {
+   delete operand;
+}
+
+Number Negative::check(const SymbolTable& st) const {
+   return Number(-1) * (operand->check(st));
+}
+
+
+BinaryExpression::~BinaryExpression() {
+   delete operand1;
+   delete operand2;
 }
 
 Number Add::check(const SymbolTable& st) const {
