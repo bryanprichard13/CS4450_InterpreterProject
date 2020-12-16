@@ -1,5 +1,5 @@
 #include "symbolTable.h"
-#include "expression.h"
+#include "conditional.h"
 
 Number LessThan::check(const SymbolTable& st, const FunctionTable& ft) const {
    return op1->check(st, ft) < op2->check(st, ft);
